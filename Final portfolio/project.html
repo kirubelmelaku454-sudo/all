@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <title>My Portfolio | Projects</title>
+        <link rel="stylesheet" href="Style.css">
+    </head>
+    <body>
+ <div id="pro">
+     <header>
+   
+       My Portfolio
+      <div ><img src="Logo.jpg" alt=""></div>
+    
+     </header>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="about.html">About</a>
+            <a href="project.html">Projects</a>
+            <a href="contact.html">Contact</a>
+        </nav>
+    
+        <section id="projects">
+            <h1>Projects</h1>
+
+            <div class="filter-controls">
+                <button onclick="filterProjects('all')">Show All</button>
+                <button onclick="filterProjects('sql')">SQL</button>
+                <button onclick="filterProjects('java')">Java</button>
+                <button onclick="filterProjects('cpp')">C++</button>
+            </div>
+
+            <div class="projects-grid" >
+                <div class="project sql">
+                    <h3>Project One</h3>
+                    <p>Library Management System <br> Database SQL code <br> <a href="Database.txt" download id="down">Download SQL </a></p>
+                </div>
+                <div class="project java">
+                    <h3>Project Two</h3>
+                    <p>Library Management System <br> Java code <br> <a href="Oop.txt" download id="down">Download Java </a></p>
+                </div>
+                <div class="project cpp">
+                    <h3>Project Three</h3>
+                    <p>Automatic Teller Machine <br> C++ code <br> <a href="Algorithm.cpp" download id="down">Download c++ </a></p>
+                </div>
+                 </div>
+            
+            <p id="dis">This page contains projects which are done in the previous year by me and my group members. Those projects can perform their own tasks. Let's see one by one ... 
+                <ul id="ls">
+                    <li id="sys"><b>Library Management system</b></li>
+                    <dt>This project is designed to minimize the load of the librarian by changing the analog system to a digital one. We completed this project using Database SQL code and Java code.</dt>
+                    <li id="sys"><b>Automatic Teller Machine</b></li>
+                    <dt>This project demonstrates the operations of the system inside the machine beyond the user. We used short, clear, readable, and understandable C++ code.</dt>
+                </ul>
+            </p>
+            <p id="you">You can see all project files using the links above.</p>
+        </section>
+</div>
+        <script src="script.js"></script>
+    </body>
+</html>

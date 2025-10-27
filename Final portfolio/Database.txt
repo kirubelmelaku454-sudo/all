@@ -1,0 +1,452 @@
+
+
+Library Managment System
+
+
+
+
+CREATE DATABASE LIBRARY_MANAGMENT_SYSTEM;
+USE LIBRARY_MANAGMENT_SYSTEM;
+
+
+CREATE TABLE Author (
+    author_id INT PRIMARY KEY,
+    first_name VARCHAR(50),
+    last_name VARCHAR(50),
+    gender VARCHAR(10),
+    dob DATE
+);
+CREATE INDEX idx_author_name ON Author(first_name, last_name);
+
+
+
+CREATE TABLE Category (
+    category_id INT PRIMARY KEY,
+    name VARCHAR(50),
+    description TEXT
+);
+CREATE INDEX idx_category_name ON Category(name);
+
+
+
+CREATE TABLE Book (
+    book_id INT PRIMARY KEY,
+    book_title VARCHAR(100),
+    author_id INT,
+    publisher VARCHAR(100),
+    quantity INT,
+    edition VARCHAR(20),
+    status VARCHAR(20),
+    publishing_date DATE,
+    FOREIGN KEY (author_id) REFERENCES Author(author_id)
+);
+CREATE INDEX idx_book_title ON Book(book_title);
+CREATE INDEX idx_book_author ON Book(author_id);
+
+
+
+CREATE TABLE Magazine (
+    magazine_id INT PRIMARY KEY,
+    title VARCHAR(100),
+    publisher VARCHAR(100),
+    category_id INT,
+    publishing_date DATE,
+    FOREIGN KEY (category_id) REFERENCES Category(category_id)
+);
+CREATE INDEX idx_magazine_title ON Magazine(title);
+CREATE INDEX idx_magazine_category ON Magazine(category_id);
+
+
+
+CREATE TABLE Member (
+    member_id INT PRIMARY KEY,
+    first_name VARCHAR(50),
+    last_name VARCHAR(50),
+    email VARCHAR(100),
+    contact_number VARCHAR(15),
+    address TEXT,
+    registration_date DATE,
+    password VARCHAR(100),
+    borrowed_item INT,
+    gender VARCHAR(10)
+);
+CREATE INDEX idx_member_email ON Member(email);
+
+
+
+
+CREATE TABLE Librarian (
+    admin_id INT PRIMARY KEY,
+    first_name VARCHAR(50),
+    last_name VARCHAR(50),
+    email VARCHAR(100),
+    contact_number VARCHAR(15),
+    username VARCHAR(50) UNIQUE,
+    password VARCHAR(100)
+);
+CREATE INDEX idx_librarian_username ON Librarian(username);
+
+
+
+
+CREATE TABLE Borrow (
+    transaction_id INT PRIMARY KEY,
+    member_id INT,
+    borrow_date DATE,
+    due_date DATE,
+    return_date DATE,
+    status VARCHAR(20),
+    fine_amount DECIMAL(8,2),
+    FOREIGN KEY (member_id) REFERENCES Member(member_id)
+);
+CREATE INDEX idx_borrow_member ON Borrow(member_id);
+
+
+
+
+CREATE TABLE ReturnTransaction (
+    return_transaction_id INT PRIMARY KEY,
+    borrow_transaction_id INT,
+    return_date DATE,
+    condition_on_return TEXT,
+    fine_charged DECIMAL(8,2),
+    FOREIGN KEY (borrow_transaction_id) REFERENCES Borrow(transaction_id)
+);
+CREATE INDEX idx_return_borrow ON ReturnTransaction(borrow_transaction_id);
+
+
+
+
+CREATE TABLE FinePenalty (
+    fine_id INT PRIMARY KEY,
+    member_id INT,
+    item_id INT,
+    reason TEXT,
+    FOREIGN KEY (member_id) REFERENCES Member(member_id)
+);
+CREATE INDEX idx_fine_member ON FinePenalty(member_id);
+
+
+
+
+CREATE TABLE RecoveryLog (
+    log_id INT PRIMARY KEY AUTO_INCREMENT,
+    action_type VARCHAR(20),
+    table_name VARCHAR(50),
+    affected_id INT,
+    backup_data TEXT,
+    timestamp DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
+
+
+
+ // INSERT SAMPLE DATA
+
+INSERT INTO Author VALUES
+    (1, 'Zenebe', 'Welde', 'Male', '1980-05-15'),
+    (2, 'Mulugeta', 'Fisiha', 'Male', '1995-07-22');
+    (3, 'Mulugeta', 'Fisiha', 'Male', '2000-07-22'),
+    (4, 'Hana, 'Brhan', 'Female', '1980-07-05'),
+    (5, 'Selam', 'kebede', 'Female', '1980-05-15');
+
+INSERT INTO Category VALUES
+    (1, 'Science', 'Scientific research and study'),
+    (2, 'History', 'Historical facts and events');
+
+
+
+INSERT INTO Book VALUES
+    (1001, 'Physics Fundamentals', 1, 'kuraz', 5, '3rd', 'Available', '2019-03-10'),
+ (1002, 'Fundamental Database', 1, 'brhan and selam', 5, '2rd', 'Available', '2020-03-10'),
+    (1003, 'Modern Biology', 2, 'tikur abay', 3, '2nd', 'Available', '2020-01-01');
+
+
+
+INSERT INTO Magazine VALUES
+    (2001, 'Science Today', 'addis zemen', 1, '2024-01-15'),
+    (2002, 'History Monthly', 'yetebaberut', 2, '2023-11-10');
+
+
+
+INSERT INTO Member VALUES
+    (301, 'Blen', 'Tesema', 'ble@mail.com', '0912123456', 'Addis Ababa', '2023-08-01', 'ble123', 0, 'Female'),
+    (302, 'Abebe', 'Terefe', 'aba@mail.com', '0912120001', 'Gondar', '2023-09-11', 'abe123', 0, 'Male'),
+    (303, 'Eden', 'Kelemu', 'ede@mail.com', '0900723456', 'Addis Ababa', '2023-11-21', 'ede123',0, 'Female'),
+    (304, 'Mekdes', 'Genetu', 'mek@mail.com', '0999121212', 'Gondar', '2023-10-01', 'mek123',0, 'Female'),
+(305, 'Biniyam', 'Kebede', 'bini@mail.com', '0912345678', 'Bahir Dar', '2023-09-15', 'bini123', 0, 'Male');
+
+
+
+INSERT INTO Librarian VALUES
+    (1, 'Helen', 'Kebede', 'helen@mail.com', '0912567890', 'helen_admin', 'secure123'),
+    (2, 'Mekdes', 'Assefa', 'mekdes@mail.com', '0912233445',         'mek_admin', 'pass456');
+    (3, 'Ruth', 'Mesfin', 'ruth@mail.com', '0913213425',      'ru_admin', 'pass789');
+    (4, 'Nahom', 'Kibru', 'nahom@mail.com', '0932431495', 'nah_admin', 'secure023');
+    (5, 'Lema', 'Solomon', 'lema@mail.com', '0992337485', 'le_admin', 'pass843');
+
+
+
+INSERT INTO Borrow VALUES
+  (401, 301, '2024-06-01', '2024-06-15', NULL, 'Borrowed',0.00),
+  (402, 302, '2024-06-02', '2024-06-16', NULL, 'Borrowed',0.00);
+  (403, 303, '2024-06-03', '2024-06-17', NULL, 'Borrowed', 0.00);
+  (402, 304, '2024-06-04', '2024-06-18', NULL, 'Borrowed', 0.00);
+  (402, 305, '2024-06-05', '2024-06-19', NULL, 'Borrowed', 0.00);
+
+
+
+
+INSERT INTO ReturnTransaction VALUES
+    (501, 401, '2024-06-14', 'Good condition', 0.00);
+    (502, 402, '2024-06-15', 'Good condition', 0.00);
+    (503, 403, '2024-06-16', 'Good condition', 0.00);
+    (504, 404, '2024-06-17', 'Good condition', 0.00);
+    (505, 405, '2024-06-18', 'Good condition', 0.00);
+
+
+INSERT INTO FinePenalty VALUES
+    (601, 301, 1001, 'Returned late by 3 days');
+    (602, 302, 2001, 'Becase of loss the item');
+    (603, 303, 1002, 'Returned late by 10 days');
+    (604, 304, 2002, 'Returned late by 4 days');
+    (605, 305, 1003, 'late by 9 days');
+
+
+
+SELECT * FROM Author;
+SELECT * FROM Category;
+SELECT * FROM Book;
+SELECT * FROM Magazine;
+SELECT * FROM Member;
+SELECT * FROM Librarian;
+SELECT * FROM Borrow;
+SELECT * FROM ReturnTransaction;
+SELECT * FROM FinePenalty;
+SELECT * FROM RecoveryLog;
+
+ //SELECT WITH JOIN BETWEEN TWO TABLES
+ //Books with their Authors
+
+
+SELECT 
+    B.book_id,
+    B.book_title,
+    A.first_name AS author_first,
+    A.last_name AS author_last
+FROM 
+    Book B
+JOIN 
+    Author A ON B.author_id = A.author_id;
+
+// Magazines with their Categories
+
+
+SELECT 
+    M.magazine_id,
+    M.title,
+    C.name AS category_name
+FROM 
+    Magazine M
+JOIN 
+    Category C ON M.category_id = C.category_id;
+
+// Borrow records with Member details
+
+
+SELECT 
+    BR.transaction_id,
+    BR.borrow_date,
+    M.first_name,
+    M.last_name,
+    M.email
+FROM 
+    Borrow BR
+JOIN 
+    Member M ON BR.member_id = M.member_id;
+
+
+//ReturnTransaction with Borrow info
+
+
+SELECT 
+    RT.return_transaction_id,
+    B.transaction_id,
+    M.first_name,
+    M.last_name,
+    RT.return_date,
+    RT.condition_on_return
+FROM 
+    ReturnTransaction RT
+JOIN 
+    Borrow B ON RT.borrow_transaction_id = B.transaction_id
+JOIN 
+    Member M ON B.member_id = M.member_id;
+
+//Fine Penalties with Member names
+
+
+SELECT 
+    FP.fine_id,
+    FP.item_id,
+    FP.reason,
+    M.first_name,
+    M.last_name
+FROM 
+    FinePenalty FP
+JOIN 
+    Member M ON FP.member_id = M.member_id;
+
+ // TCL & DCL COMMANDS 
+
+
+START TRANSACTION;
+SAVEPOINT before_inserting_borrow;
+INSERT INTO Borrow VALUES (403, 301, '2024-06-16', '2024-06-30', NULL, 'Borrowed', 0.00);
+
+ROLLBACK TO before_inserting_borrow;
+INSERT INTO Borrow VALUES (403, 302, '2024-06-16', '2024-06-30', NULL, 'Borrowed', 0.00);
+COMMIT;
+
+
+// Recovery 
+INSERT INTO RecoveryLog (action_type, table_name, affected_id, backup_data)
+SELECT 'UPDATE', 'Book', book_id,
+       CONCAT('Title:', book_title, ', Qty:', quantity)
+FROM Book
+WHERE book_id = 1001;
+
+UPDATE Book SET quantity = quantity - 1 WHERE book_id = 1001;
+UPDATE Book SET quantity = quantity + 1 WHERE magazine_id = 2001;
+DELETE FROM RecoveryLog WHERE table_name = 'Book' AND affected_id = 1002;
+
+
+ 
+ // UPDATE STATEMENTS
+
+UPDATE Member SET email = 'new_alice@mail.com' WHERE member_id = 301;
+
+UPDATE Book SET quantity = quantity + 2 WHERE book_id = 1001;
+
+
+// DELETE STATEMENTS
+
+
+
+DELETE FROM FinePenalty WHERE fine_id = 601;
+
+DELETE FROM Member WHERE member_id = 302;
+
+
+
+// DROP TABLES (IF EXISTS)
+
+DROP TABLE IF EXISTS ReturnTransaction;
+DROP TABLE IF EXISTS FinePenalty;
+DROP TABLE IF EXISTS Borrow;
+DROP TABLE IF EXISTS Librarian;
+DROP TABLE IF EXISTS Member;
+DROP TABLE IF EXISTS Magazine;
+DROP TABLE IF EXISTS Book;
+DROP TABLE IF EXISTS Category;
+DROP TABLE IF EXISTS Author;
+DROP TABLE IF EXISTS RecoveryLog;
+
+ //CREATE VIEW 
+
+
+
+CREATE VIEW BookDetails AS
+SELECT B.book_id, B.book_title, A.first_name AS author_first_name, C.name AS category_name
+FROM Book B
+JOIN Author A ON B.author_id = A.author_id
+LEFT JOIN Category C ON B.book_id = C.category_id;
+
+CREATE VIEW BorrowedBooks AS
+SELECT BR.transaction_id, BR.borrow_date, M.first_name, M.last_name, B.book_title
+FROM Borrow BR
+JOIN Member M ON BR.member_id = M.member_id
+JOIN Book B ON BR.transaction_id = B.book_id;
+
+//FUNCTION 
+
+
+DELIMITER// 
+CREATE FUNCTION GetMemberBorrowCount(mem_id INT)
+RETURNS INT
+DETERMINISTIC
+BEGIN
+  DECLARE borrow_count INT;
+  SELECT COUNT(*) INTO borrow_count FROM Borrow WHERE member_id = mem_id;
+  RETURN borrow_count;
+END //
+DELIMITER ;
+
+// PROCEDURE
+
+
+
+DELIMITER //
+CREATE PROCEDURE InsertNewMember(
+  IN p_id INT, IN p_fname VARCHAR(50), IN p_lname VARCHAR(50),
+  IN p_email VARCHAR(100), IN p_contact VARCHAR(15), IN p_address TEXT,
+  IN p_reg_date DATE, IN p_password VARCHAR(100), IN p_gender VARCHAR(10)
+)
+BEGIN
+  INSERT INTO Member
+  VALUES (p_id, p_fname, p_lname, p_email, p_contact, p_address, p_reg_date, p_password, 0, p_gender);
+END //
+DELIMITER ;
+
+// TRIGGER
+
+DELIMITER //
+CREATE TRIGGER before_book_update
+BEFORE UPDATE ON Book
+FOR EACH ROW
+BEGIN
+  INSERT INTO RecoveryLog (action_type, table_name, affected_id, backup_data)
+  VALUES ('UPDATE', 'Book', OLD.book_id,
+          CONCAT('Old Title:', OLD.book_title, ', Old Qty:', OLD.quantity));
+END;
+//
+DELIMITER ;
+
+
+
+//GRANT & REVOKE 
+
+
+
+GRANT SELECT, INSERT, UPDATE ON LIBRARY_MANAGMENT_SYSTEM.* TO 'lib_user'@'localhost';
+
+REVOKE UPDATE ON LIBRARY_MANAGMENT_SYSTEM.* FROM 'lib_user'@'localhost';
+
+
+// TCL TRANSACTIONS
+
+
+START TRANSACTION;
+SAVEPOINT sp1;
+
+INSERT INTO Borrow VALUES (404, 301, '2024-06-18', '2024-06-30', NULL, 'Borrowed', 0.00);
+
+SAVEPOINT sp2;
+UPDATE Book SET quantity = quantity - 1 WHERE book_id = 1001;
+
+ROLLBACK TO sp2; 
+COMMIT; 
+
+
+
+
+
+Group Member			ID 
+
+1. Kirubel  Melaku		01336/16
+2. Mulugeta  Fisih		01919/16
+3. Ruth   Mesfin			01689/16
+4. Rahel  Genetu		01945/16
+5. Tigist  Asrat			01582/16
+
+

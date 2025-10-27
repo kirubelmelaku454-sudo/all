@@ -1,0 +1,366 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    color: #333;
+    line-height: 1.6;
+}
+
+header{
+    display: flex;
+    background: #333;
+    color: rgb(244, 8, 232);
+    padding: 10px;
+    text-align: center;
+    font-size: 3em;
+    margin-top: 0%;
+   justify-content: space-between;
+}
+
+nav {
+    background: #555;
+    text-align: right;
+    padding: 0.5em 0;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    padding: 0.8em 1.5em;
+    display:inline-block;
+    transition: background-color 0.3s;
+}
+ header div {
+    
+    position: relative;
+    width: 15vw;
+    height: 12vw;
+    border: 2px solid #fff;
+    border-radius: 50%;
+    box-shadow: 0 0 20px #fff;
+    overflow: hidden;
+    margin-top:  0;
+    float: top;
+ 
+ 
+}
+
+
+header div img{
+position: absolute;
+top: 0%;
+display: block;
+width: 100%;
+
+margin-bottom: 100px;
+margin-left: 0;
+float: left;
+}
+
+nav a:hover {
+    background-color: #777;
+}
+
+section {
+    padding: 2em;
+    margin: 1.5em auto;
+    max-width: 1000px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    
+}
+
+h1 {
+    text-align: center;
+    color: #007bff;
+    margin-bottom: 1em;
+}
+
+
+#home .home-container {
+    display: flex; 
+    align-items: center; 
+    justify-content: space-around; 
+    flex-wrap: wrap; 
+    padding: 2em 1em;
+    text-align: left;
+    
+   
+    border-radius: 8px; 
+   box-shadow: 0 0 20px #fff 
+    
+    
+}
+
+#home .home-photo {
+    max-width: 300px; 
+    height: auto;
+
+    border-radius:  8px; 
+    border: 3px solid #007bff; 
+    margin: 1em; 
+    box-shadow: 0 0 20px #fff 
+}
+
+#home .home-text {
+    flex-grow: 1; 
+    max-width: 500px;
+    padding: 1em;
+}
+#home .download-social{
+    display: flex;
+    align-items: center;
+
+}
+
+#home .social-icons{
+    margin-left: 20px;
+}
+#home .social-icons a{
+    display: inline-flex;
+    padding-left: 8px;
+    border: 2px solid #fff;
+    border-radius: 50px;
+    font-size: 20px;
+    color: #fff;
+    text-decoration: none;
+    margin: 0 8px;
+    transition: .5s;
+}
+#home .social-icons a:hover{
+    background: #fff;
+    box-shadow: 0 0 10px #fff;
+    color: #333;
+}
+
+#home h1 {
+    margin-top: 0;
+    color: #04ea36; 
+    font-size: 3em;
+}
+#home h3{
+    color: gold;
+}
+
+@media (max-width: 768px) {
+    #home .home-container {
+
+        flex-direction: column; 
+        text-align: center;
+    }
+
+    #home .home-photo {
+        max-width: 80%; 
+    }
+}
+
+
+.projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    margin-top: 1.5em;
+}
+#projects {
+    background-color:rgb(3, 3, 110)
+}
+#pro{
+       background: url(Back.jpg) no-repeat center / cover;
+
+}
+.project {
+    border: 1px solid #ddd;
+    padding: 1em;
+    border-radius: 5px;
+    transition: transform 0.3s;
+    background-color: rgb(6, 119, 127);
+}
+
+.project:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.project h3 {
+    color: #007bff;
+}
+.project cpp h3, p{
+    color: #e306f3;
+}
+#dis,#ls,#you{
+    color:greenyellow;
+}
+#sys{
+    color: goldenrod;
+}
+
+.filter-controls {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.filter-controls button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    margin: 5px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.filter-controls button:hover {
+    background-color: #0056b3;
+}
+
+#contact form {
+    display: grid;
+    gap: 15px;
+    max-width: 500px;
+    margin: 0 auto;
+}
+#contact {
+    background: url(Dad.jpg) no-repeat center / cover;
+}
+#con{
+background: url(New.jpg) no-repeat center / cover;
+
+}
+
+#contact input[type="text"],
+#contact input[type="email"],
+#contact textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+#contact button[type="submit"] {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+    font-size: 1.1em;
+}
+
+#contact button[type="submit"]:hover {
+    background-color: #1e7e34;
+}
+
+footer {
+    background: #333;
+    color: white;
+    text-align: center;
+    padding: 1em 0;
+    margin-top: 2em;
+}
+
+footer ul {
+    list-style: none;
+    padding: 0;
+    margin-top: 0.5em;
+}
+
+footer li {
+    display: block;
+    margin: 5px 0;
+}
+
+@media (max-width: 768px) {
+    #home .home-container {
+        flex-direction: column;
+        backdrop-filter: rgba(255,255,255, .1)
+    }
+
+    #home .home-text {
+        max-width: 60%;
+        margin-top: 1em;
+    }
+
+    nav a {
+        display: block;
+        padding: 0.5em;
+    }
+}
+.skills-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-top: 30px;
+            background: url(mom.jpg) no-repeat center / cover;
+        }
+        
+        .skill-category {
+            background-color: #055b7d;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #3498db;
+        }
+        
+        .skill-category h4 {
+            margin-bottom: 15px;
+            color: white;
+        }
+        
+        .skill-category ul {
+            list-style-type: none;
+        }
+        
+        .skill-category ul li {
+            padding: 5px 0;
+            position: relative;
+            padding-left: 20px;
+            color: rgb(135, 50, 232);
+        }
+        
+        .skill-category ul li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #0af9e1;
+        }
+        #about p{
+            color: gold;
+        }
+        #about {
+             background: url(mom.jpg) no-repeat center / cover;
+        }
+        #home {
+             background: url(mom.jpg) no-repeat center / cover;
+        }
+        #body{
+            background: url(Middle.jpg) no-repeat center / cover;
+        }
+        #div{
+            background: url(Middle.jpg)no-repeat center / cover  ;
+        }
+        #About {
+                         background: url(mom.jpg) no-repeat center / cover;
+
+        }
+        #down {
+            background-color: #007bff;
+        }
+        #down:hover{
+            color: rgb(241, 12, 127);
+            background-color: cyan;
+        }
+        #heven{
+             position: relative;
+    width: 30vw;
+    height: 30vw;
+    border: 2px solid #fff;
+    border-radius: 50%;
+    box-shadow: 0 0 20px #fff;
+    overflow: hidden;
+        }
+      
